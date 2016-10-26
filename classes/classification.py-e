@@ -15,8 +15,8 @@ class Label(object):
 		parent.link_child(self)
 
 	def link_child(child):
-		self.ch_count +=1
 		self.child[ch_count] = child
+		self.ch_count +=1		
 
 	def display():
 		# temp = Label("temp", 0, 0)

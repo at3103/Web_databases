@@ -20,3 +20,14 @@ basketball.link_parent(sports)
 sports.link_parent(root)
 health.link_parent(root)
 computers.link_parent(root)
+
+d = { "Programming" : programming,
+		"Hardware"	: hardware,
+		"Diseases"	: diseases,
+		"Fitness"	: fitness,
+		"Basketball": basketball,
+		"Soccer"	: soccer,
+		"Sports"	: sports,
+		"Health"	: health,
+		"Computers"	: computers,
+}

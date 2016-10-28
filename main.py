@@ -4,12 +4,10 @@ from src.functions.BingQuery import *
 from src.glob.scheme import *
 from src.algorithm.qProber import *
 import sys
+from src.key.key import *
 
-
-
-key = '2OR+OyjGjnltNG8Nuc2Q8y2w5CYKtpgxYtem+wWzEgk'
 tec = 12000
-tes = 0.7
+tes = 0.95
 Add_qterms()
 
 for di in d.keys():

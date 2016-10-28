@@ -20,7 +20,8 @@ basketball.link_parent(sports)
 sports.link_parent(root)
 health.link_parent(root)
 computers.link_parent(root)
-
+computers.display()
+root.display()
 d = { "Programming" : programming,
 		"Hardware"	: hardware,
 		"Diseases"	: diseases,

@@ -32,9 +32,8 @@ class Label(object):
 		# temp = self
 		# while(temp.)
 		print("P1:" + self.name )
-		count = self.ch_count
-		while(count > 0):
-			print("C" , ch_count - count , " : " + self.child[count])
+		count = self.ch_count - 1 
+		while(count >= 0):
+			print("C" , self.ch_count - count , " : " + self.child[count].name)
 			count -= 1
 
-		

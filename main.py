@@ -6,8 +6,8 @@ from src.algorithm.qProber import *
 import sys
 from src.key.key import *
 
-tec = 12000
-tes = 0.95
+# tec = 12000
+# tes = 0.02
 Add_qterms()
 
 for di in d.keys():
@@ -15,6 +15,8 @@ for di in d.keys():
 		count = ping('fifa.com',query,key)
 		 #d[di].cov+=int(count)
 		d[di].assign_coverage(float(count))
+assign_lvl_coverage()
+		
 for di in d.keys():
 	d[di].compute_specificity()
 
@@ -26,8 +28,10 @@ for di in d.keys():
 #display(root)
 for child in root.child:
 	display(child)
-	classify(root.name,child,tec,tes)
+#	classify(child,tec,tes)
+	classify(child)	
 print " "
-print classification	
+for w in classification:
+	print w	
 #classify (root,tec,tes)
 

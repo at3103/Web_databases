@@ -1,7 +1,7 @@
 class threshold(object):
 	"""docstring for threshold"""
-	def __init__(self, arg):
+	def __init__(self, tec, tes):
 		super(threshold, self).__init__()
-		self.es = es
-		self.ec = ec
+		self.tes = tes
+		self.tec = tec
 		

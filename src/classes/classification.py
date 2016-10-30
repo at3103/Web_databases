@@ -17,6 +17,7 @@ class Label(object):
 		self.path = 'Root'
 		self.level = 0
 		self.flag = 0
+		self.top4links = []
 
 
 	def link_parent(self,parent):

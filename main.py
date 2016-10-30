@@ -31,7 +31,7 @@ for child in root.child:
 #	classify(child,tec,tes)
 	classify(child)	
 print " "
-for w in classification:
+for w in label_list:
 	print w	
 #classify (root,tec,tes)
 

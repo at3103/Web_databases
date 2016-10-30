@@ -14,32 +14,16 @@ def ping(site,query,key):
 	response = urllib2.urlopen(req)
 	content = response.read()
 	#content contains the xml/json response from Bing. 
-	cont = json.loads(content)
-#	print cont['d']['results'][0]['WebTotal']
-	print cont['d']['results'][0]['Url']
-	for i in range(4):
-		top4.append(cont['d']['results'][i]['Url'])
-	return cont['d']['results'][0]['WebTotal']
-'''
-def ping_top4(site,query,key):
+	bingweb = json.loads(content)['d']['results'][0]
 
-	bingUrl = 'https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Composite?Query=%27site%3a'+ site +'%20'+ query +'%27&$top=10&$format=json'
-	#Provide your account key here
-	accountKey = key
-	top4 = []
-	accountKeyEnc = base64.b64encode(accountKey + ':' + accountKey)
-	headers = {'Authorization': 'Basic ' + accountKeyEnc}
-	req = urllib2.Request(bingUrl, headers = headers)
-	response = urllib2.urlopen(req)
-	content = response.read()
-	#content contains the xml/json response from Bing. 
-	cont = json.loads(content)
-#	print cont['d']['results'][0]['WebTotal']
-	print cont['d']['results'][0]['Url']
-	for i in range(4):
-		top4.append(cont['d']['results'][i]['Url'])
-	return top4
-'''
-#key = 'bing_acct_key'
+	selected_length = 4 if int(bingweb['WebTotal']) >= 4 else int(bingweb['WebTotal'])
 
-#print ping('fifa.com','boardfsb',key)
+	for i in range(selected_length):
+		top4.append(str(bingweb['Web'][i]['Url']))
+	return bingweb['WebTotal'], top4
+
+# key = 'WYXV0SfCQlIR7tkKc38KqcSi91X6jGGlNPCnJyZjgtg'
+# count, top4 = ping('fifa.com','query',key)
+
+# print count
+# print top4

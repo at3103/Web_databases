@@ -12,8 +12,8 @@ Add_qterms()
 
 for di in d.keys():
 	for query in d[di].q_terms:
-		count = ping('fifa.com',query,key)
-		 #d[di].cov+=int(count)
+		count, top4 = ping('fifa.com',query,key)
+		d[di].top4links.append(top4)
 		d[di].assign_coverage(float(count))
 assign_lvl_coverage()
 		

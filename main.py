@@ -7,6 +7,8 @@ import sys
 from src.key.key import *
 from src.functions.displayPages import *
 import time
+import subprocess
+from collections import Counter
 
 # tec = 12000
 # tes = 0.02
@@ -73,6 +75,18 @@ for node in displaylist:
 #getWordsLynx(root)		
 
 #For every link in label.topSet call java file using subprocess. Append returned strings to a list
+
+subprocess.call(["javac", "src/getWordsLynx.java"])
+
+for node in displaylist:
+	words = []
+	for link in node.topSet:
+		words += subprocess.call(["java","src/getWordsLynx", link]).strip().split()
+	node.cont_sum_list += words
+	count_set = Counter(node.cont_sum_list)
+	print "Contet summary for " + node.name
+	print count_set
+
 
 
 

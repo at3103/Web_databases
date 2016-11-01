@@ -13,12 +13,22 @@ import time
 Add_qterms()
 
 for di in d.keys():
+	toptemp = []
 	for query in d[di].q_terms:
 		print di,query
 		count, top4 = ping('fifa.com',query,key)
 		#time.sleep(5)
-		d[di].parent.top4links.append(top4)
+		temp = []
+		for link in top4:
+			if link not in toptemp:
+				toptemp.append(link)
+				temp.append(link)
+		#d[di].parent.topSet += temp		
+		d[di].parent.top4links.append(temp)
 		d[di].assign_coverage(float(count))
+		# d[di].parent.top4links.append(top4)
+		# d[di].assign_coverage(float(count))
+	d[di].parent.topSet.update(toptemp) 		
 assign_lvl_coverage()
 		
 for di in d.keys():
@@ -39,13 +49,30 @@ for w in label_list:
 	print w	
 #classify (root,tec,tes)
 
+
+
 print "Extracting topic content summaries..."
-displayPages(root)
+#displayPages(root)
+displaylist =[]
+displaylist.append(root)
 
 for child in root.child:
 	if any(child.name in string for string in label_list): 
-		displayPages(child)
+		for qlinks in child.top4links:
+			temp = []
+			for links in qlinks:
+				if links not in root.topSet:
+					root.topSet.update(links)
+					temp.append(links)
+			root.top4links.append(temp)#child.top4links 
+		displaylist.append(child)
 
+for node in displaylist:
+	displayPages(node)
+
+#getWordsLynx(root)		
+
+#For every link in label.topSet call java file using subprocess. Append returned strings to a list
 
 
 

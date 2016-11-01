@@ -18,6 +18,7 @@ class Label(object):
 		self.level = 0
 		self.flag = 0
 		self.top4links = []
+		self.topSet = set()
 
 
 	def link_parent(self,parent):

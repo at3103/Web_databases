@@ -21,7 +21,7 @@ def ping(site,query,key):
 	for i in range(selected_length):
 		#print bingweb['Web'][i]['Url'].encode("utf-8")
 		top4.append(str(bingweb['Web'][i]['Url'].encode("utf-8")))
-	print query,top4	
+	#print query,top4	
 	return int(bingweb['WebTotal']), top4
 
 # key = 'WYXV0SfCQlIR7tkKc38KqcSi91X6jGGlNPCnJyZjgtg'

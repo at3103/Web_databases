@@ -17,7 +17,7 @@ Add_qterms()
 for di in d.keys():
 	toptemp = []
 	for query in d[di].q_terms:
-		print di,query
+		#print di,query
 		count, top4 = ping('fifa.com',query,key)
 		#time.sleep(5)
 		temp = []

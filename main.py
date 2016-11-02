@@ -9,6 +9,8 @@ from src.functions.displayPages import *
 import time
 import subprocess
 from collections import Counter
+from time import sleep
+
 
 # tec = 12000
 # tes = 0.02
@@ -78,17 +80,25 @@ for node in displaylist:
 #For every link in label.topSet call java file using subprocess. Append returned strings to a list
 
 #subprocess.call(["javac", "src/getWordsLynx.java"])
-s = subprocess.Popen(["javac", "src/getWordsLynx.java"], stderr= subprocess.PIPE)
+#s = subprocess.Popen(["javac", "src/getWordsLynx.java"], stderr= subprocess.PIPE)
 #subprocess.call(["java", "src/getWordsLynx.java"])
+
+print root.topSet
 
 for node in displaylist:
 	words = []
 	for link in node.topSet:
-		subprocess.call(["cd","src"])
-		proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
-		st = proc.communicate()[0]
-		words += st.strip().strip('\x00').split()
-		print "Got words"
+		print link
+		if link.endswith(".pdf") or link.endswith(".ppt") or link.endswith("-"):
+			continue
+		else:
+		#if "pdf" not in link or "ppt" not in link: #Ignoring PDFs and PPTs
+			subprocess.call(["cd","src"])
+			proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
+			st = proc.communicate()[0]
+			sleep(2)
+			words += st.strip().strip('\x00').split()
+			print "Got words"
 		#print words
 	node.cont_sum_list += words
 	count_set = Counter(node.cont_sum_list)

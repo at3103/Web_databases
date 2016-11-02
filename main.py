@@ -37,7 +37,7 @@ for di in d.keys():
 	toptemp = []
 	for query in d[di].q_terms:
 		#print di,query
-		count, top4 = ping('fifa.com',query,key)
+		count, top4 = ping(host,query,key)
 		#time.sleep(5)
 		temp = []
 		for link in top4:
@@ -113,7 +113,7 @@ for node in displaylist:
 			subprocess.call(["cd","src"])
 			proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
 			st = proc.communicate()[0]
-			sleep(2)
+			#sleep(2)
 			doc_words = set(st.strip().strip('\x00').split())
 			#words += st.strip().strip('\x00').split()
 			words+=list(doc_words)
@@ -126,7 +126,7 @@ for node in displaylist:
 
 	savetoFile(node,sorted_count_set,host)
 	print "Content summary for " + node.name
-	print sorted_count_set
+	#print sorted_count_set
 
 
 

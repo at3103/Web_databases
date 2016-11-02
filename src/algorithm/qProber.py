@@ -7,7 +7,7 @@ count = 0
 
 #tec = 12000
 #tes = 0.02
-th = threshold(70000, 0.0001)
+th = threshold(70000, 0.7)
 
 #Check Threshold!!!!
 tec = th.tec

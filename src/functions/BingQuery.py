@@ -16,12 +16,12 @@ def ping(site,query,key):
 	#content contains the xml/json response from Bing. 
 	bingweb = json.loads(content)['d']['results'][0]
 
-	selected_length = 4 if int(bingweb['WebTotal']) >= 4 else int(bingweb['WebTotal'])
+	selected_length = 4 if int(bingweb['WebTotal']) > 4 else int(bingweb['WebTotal'])
 
 	for i in range(selected_length):
 		#print bingweb['Web'][i]['Url'].encode("utf-8")
 		top4.append(str(bingweb['Web'][i]['Url'].encode("utf-8")))
-	print query,top4	
+	#print query,top4	
 	return int(bingweb['WebTotal']), top4
 
 # key = 'WYXV0SfCQlIR7tkKc38KqcSi91X6jGGlNPCnJyZjgtg'

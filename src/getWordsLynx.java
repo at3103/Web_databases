@@ -4,7 +4,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+
 public class getWordsLynx {
+
 
     public static Set runLynx(String url) {
 
@@ -78,8 +80,14 @@ public class getWordsLynx {
         }
         return document;
     }
+    /*
+    public Set func(String url) {
 
+        return runLynx(url);
+    }*/
+    
     public static void main(String args[]) {
         runLynx(args[0]);
+
     }
 }

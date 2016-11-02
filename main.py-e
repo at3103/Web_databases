@@ -17,7 +17,7 @@ Add_qterms()
 for di in d.keys():
 	toptemp = []
 	for query in d[di].q_terms:
-		print di,query
+		#print di,query
 		count, top4 = ping('fifa.com',query,key)
 		#time.sleep(5)
 		temp = []
@@ -36,6 +36,8 @@ assign_lvl_coverage()
 for di in d.keys():
 	d[di].compute_specificity()
 
+print "CLASSIFICATION\n"
+
 #for di in d.keys():
 #	print di + "Coverage ",d[di].cov
 #	print di + "Specificity",d[di].spec
@@ -52,8 +54,7 @@ for w in label_list:
 #classify (root,tec,tes)
 
 
-
-print "Extracting topic content summaries..."
+print "\nExtracting topic content summaries..."
 #displayPages(root)
 displaylist =[]
 displaylist.append(root)
@@ -76,15 +77,22 @@ for node in displaylist:
 
 #For every link in label.topSet call java file using subprocess. Append returned strings to a list
 
-subprocess.call(["javac", "src/getWordsLynx.java"])
+#subprocess.call(["javac", "src/getWordsLynx.java"])
+s = subprocess.Popen(["javac", "src/getWordsLynx.java"], stderr= subprocess.PIPE)
+#subprocess.call(["java", "src/getWordsLynx.java"])
 
 for node in displaylist:
 	words = []
 	for link in node.topSet:
-		words += subprocess.call(["java","src/getWordsLynx", link]).strip().split()
+		subprocess.call(["cd","src"])
+		proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
+		st = proc.communicate()[0]
+		words += st.strip().strip('\x00').split()
+		print "Got words"
+		#print words
 	node.cont_sum_list += words
 	count_set = Counter(node.cont_sum_list)
-	print "Contet summary for " + node.name
+	print "Content summary for " + node.name
 	print count_set
 
 

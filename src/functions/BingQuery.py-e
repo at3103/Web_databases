@@ -20,9 +20,10 @@ def ping(site,query,key):
 	bingweb = json.loads(content)['d']['results'][0]
 
 	for i in bingweb['Web']:
-		top4.append(str(i['Url'].encode("utf-8")))
-
-	
+		#top4.append(str(i['Url'].encode("utf-8")))
+		url = i['Url']
+		url = url.encode("ascii", "ignore")
+		top4.append(url)
 
 	return int(bingweb['WebTotal']), top4
 

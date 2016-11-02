@@ -5,10 +5,7 @@ import json
 def ping(site,query,key):
 	
 	bingUrl = 'https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Composite?Query=%27site%3a'+ site +'%20'+ query +'%27&$top=4&$format=json'
-	
-	#Provide your account key here
-	accountKey = key
-	
+	accountKey = key	
 	top4=[]
 	accountKeyEnc = base64.b64encode(accountKey + ':' + accountKey)
 	headers = {'Authorization': 'Basic ' + accountKeyEnc}
@@ -20,15 +17,8 @@ def ping(site,query,key):
 	bingweb = json.loads(content)['d']['results'][0]
 
 	for i in bingweb['Web']:
-		#top4.append(str(i['Url'].encode("utf-8")))
 		url = i['Url']
 		url = url.encode("ascii", "ignore")
 		top4.append(url)
 
 	return int(bingweb['WebTotal']), top4
-
-# key = 'WYXV0SfCQlIR7tkKc38KqcSi91X6jGGlNPCnJyZjgtg'
-# count, top4 = ping('fifa.com','motherboard',key)
-
-# print count
-# print top4

@@ -2,7 +2,6 @@
 class Label(object):
 	lvl_list = []
 
-	
 	"""docstring for Label"""
 	def __init__(self, name,cov,spec):
 		super(Label, self).__init__()
@@ -20,7 +19,6 @@ class Label(object):
 		self.top4links = []
 		self.topSet = set()
 		self.cont_summary = []
-
 
 	def link_parent(self,parent):
 		self.parent = parent

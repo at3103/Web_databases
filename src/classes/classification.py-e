@@ -46,25 +46,11 @@ class Label(object):
 		lvl_list[2] = 0
 		for child in root.child:
 			lvl_list[2] += child.total_cov
-		'''	
-		index = 0
-		current = self
-		while current.ch_count > 0:
-			index += 1
-			lvl_list[index]=current.total_cov
-
-			for child in self.child:
-				lvl_list[index] += child.cov
-			current = current.child	
-		'''	
 
 	def compute_specificity(self):
 		self.spec = self.cov/Label.lvl_list[self.level]
 
 	def display(self):
-		# temp = Label("temp", 0, 0)
-		# temp = self
-		# while(temp.)
 		print "P1:" + self.name 
 		print self.ch_count
 		count = self.ch_count - 1
@@ -73,10 +59,3 @@ class Label(object):
 			count -= 1
 
 
-# def assign_lvl_coverage():
-
-# 	Label.lvl_list.append(0) 
-# 	Label.lvl_list.append(root.total_cov)
-# 	Label.lvl_list.append(0) 
-# 	for child in root.child:
-# 		Label.lvl_list[2] += child.total_cov

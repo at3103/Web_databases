@@ -5,3 +5,4 @@ class threshold(object):
 		self.tes = tes
 		self.tec = tec
 		
+th = threshold(sys.argv[2], sys.argv[1])

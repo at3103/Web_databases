@@ -9,6 +9,11 @@ import time
 import subprocess
 from collections import Counter
 from time import sleep
+from src.algorithm.qProber import *
+from src.functions.savetoFile import *
+import operator
+from src.functions.savetoFile import *
+
 
 if len(sys.argv) != 4:
 	print "Wrong format: Provide arguments in this parameter <t_es> <t_ec> <host>"
@@ -21,6 +26,8 @@ if(float(sys.argv[1]) > 1 or float(sys.argv[1]) < 0):
 if(float(sys.argv[2]) < 1):
 	print "Invalid value for t_c"
 	sys.exit()
+
+host = sys.argv[3]	
 
 
 #Threshold must be btw 0 and 1 else break
@@ -65,7 +72,7 @@ for w in label_list:
 	print w	
 #classify (root,tec,tes)
 
-print root.topSet
+#print root.topSet
 print " " 
 
 
@@ -81,7 +88,7 @@ for child in root.child:
 			temp = []
 			for links in qlinks:
 				if links not in root.topSet:
-					print links +'\n'
+					#print links +'\n'
 					ll.append(links)
 					temp.append(links)
 			root.top4links.append(temp) 
@@ -92,13 +99,13 @@ for node in displaylist:
 
 root.topSet = set(ll)
 
+
 #For every link in label.topSet call java file using subprocess. Append returned strings to a list
 s = subprocess.Popen(["javac", "src/getWordsLynx.java"], stderr= subprocess.PIPE)
 
 for node in displaylist:
 	words = []
 	for link in node.topSet:
-		print link
 		if link.endswith(".pdf") or link.endswith(".ppt"):
 			continue
 		else:
@@ -106,13 +113,20 @@ for node in displaylist:
 			subprocess.call(["cd","src"])
 			proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
 			st = proc.communicate()[0]
-			words += st.strip().strip('\x00').split()
+			sleep(2)
+			doc_words = set(st.strip().strip('\x00').split())
+			#words += st.strip().strip('\x00').split()
+			words+=list(doc_words)
 
-	node.cont_sum_list += words
-	count_set = Counter(node.cont_sum_list)
+	#node.cont_summary += words
+	#count_set = Counter(node.cont_sum_list)
+	count_set = Counter(words)
+
+	sorted_count_set = sorted(count_set.items(), key=operator.itemgetter(0))
+
+	savetoFile(node,sorted_count_set,host)
 	print "Content summary for " + node.name
-	print count_set
-
+	print sorted_count_set
 
 
 

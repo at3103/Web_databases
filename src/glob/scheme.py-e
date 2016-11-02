@@ -21,8 +21,6 @@ fitness.link_parent(health)
 soccer.link_parent(sports)
 basketball.link_parent(sports)
 
-computers.display()
-root.display()
 d = { "Programming" : programming,
 		"Hardware"	: hardware,
 		"Diseases"	: diseases,

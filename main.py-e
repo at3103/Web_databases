@@ -14,6 +14,7 @@ from time import sleep
 
 # tec = 12000
 # tes = 0.02
+#Threshold must be btw 0 and 1 else break
 Add_qterms()
 
 for di in d.keys():
@@ -55,19 +56,27 @@ for w in label_list:
 	print w	
 #classify (root,tec,tes)
 
+print root.topSet
+print " " 
+
 
 print "\nExtracting topic content summaries..."
 #displayPages(root)
 displaylist =[]
 displaylist.append(root)
 
+ll = list(root.topSet)
+
 for child in root.child:
 	if any(child.name in string for string in label_list): 
 		for qlinks in child.top4links:
 			temp = []
 			for links in qlinks:
+				#print links+"\n"
 				if links not in root.topSet:
-					root.topSet.update(links)
+					print links +'\n'
+					#root.topSet.update(links)
+					ll.append(links)
 					temp.append(links)
 			root.top4links.append(temp)#child.top4links 
 		displaylist.append(child)
@@ -75,15 +84,18 @@ for child in root.child:
 for node in displaylist:
 	displayPages(node)
 
+root.topSet = set(ll)
+
+
 #getWordsLynx(root)		
 
 #For every link in label.topSet call java file using subprocess. Append returned strings to a list
 
 #subprocess.call(["javac", "src/getWordsLynx.java"])
-#s = subprocess.Popen(["javac", "src/getWordsLynx.java"], stderr= subprocess.PIPE)
+s = subprocess.Popen(["javac", "src/getWordsLynx.java"], stderr= subprocess.PIPE)
 #subprocess.call(["java", "src/getWordsLynx.java"])
 
-print root.topSet
+#print root.topSet
 
 for node in displaylist:
 	words = []
@@ -96,7 +108,7 @@ for node in displaylist:
 			subprocess.call(["cd","src"])
 			proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
 			st = proc.communicate()[0]
-			sleep(2)
+			#sleep(2)
 			words += st.strip().strip('\x00').split()
 			print "Got words"
 		#print words
@@ -104,7 +116,6 @@ for node in displaylist:
 	count_set = Counter(node.cont_sum_list)
 	print "Content summary for " + node.name
 	print count_set
-
 
 
 

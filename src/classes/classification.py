@@ -19,7 +19,7 @@ class Label(object):
 		self.flag = 0
 		self.top4links = []
 		self.topSet = set()
-		self.cont_sum_list = []
+		self.cont_summary = []
 
 
 	def link_parent(self,parent):

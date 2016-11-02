@@ -1,0 +1,78 @@
+Bing Account Key:
+2OR+OyjGjnltNG8Nuc2Q8y2w5CYKtpgxYtem+wWzEgk
+
+This key is added in the file key/key.py
+If the key needs to be changed, the key value must be altered in key/key.py 
+
+To run:
+python main.py <t_es> <t_ec> <host>
+
+where <t_es> : Specificity threshold
+<t_ec> : Coverage threshold
+<host> : URL of database
+
+Example: python main.py 0.7 12000 fifa.com 
+
+Codes:
+main.py: 
+The main driver program. It takes care of user input/interaction, getting results from the search engine, classifying the database, creating document samples and creating content summary. 
+
+Within src:
+1) algorithm 
+qProber.py:
+Contains the QProber algorithm [1] 
+
+2) classes [These are helper classes]
+classification.py: Information about the categories in the database, their relationships(hierarchy), their attributes like specificity, coverage, content summary, etc 
+given.py: Sets the threshold values for specificity and coverage.
+
+3) functions
+add_qterms.py:
+BingQuery.py:
+displayPages.py:
+savetoFile.py:
+
+
+
+check.py: Checks to make decisions like when to break.
+combine_dict.py: Method to computer document frequency
+display_output.py: Contains all the relevant print statements
+prox.py: Calculates the proximity of words
+4) glob
+5) key
+6) queries
+7) getWordsLynx.java
+
+Relevance Feedback:
+
+To generate new search terms, we used the title and the description of the relevant search results. We split the words using NLTK's word tokenizer and then got rid of the stop words. We calculated the weight of each word using the following formula: 
+Wi,j = tfi,j * log(N/dfi)
+
+where tfi,j is the number of times the term i has occured in document j
+N is the total number of documents
+dfi is the number of docuents where term i has occured.
+
+We the used ROCCHIO's Algorithm to provide relevance feedback [1]:
+qm = α*q0 + β1/|Dr|* ∑ dj(dj∈Dr) + γ/|Dnr| * ∑ dj(dj∈Dnr)
+
+After trying many combinations of constants, we found the following values to be good parameters for Rocchio's algorithm. 
+alpha = 1
+beta  = 0.75
+gamma = 0.15
+
+In addition to this, we also used term proximity in the calculation of relevance feedback[2]. 
+We used the follwoing formula:
+df(x,y) = log(1+1/D(x,y)) where df(x,y) : logarithmic based distance factor between terms x,y 
+where x is query term and y is probable query expansion term. 
+D(x,y) : distance between x and y among relevant docs
+
+If a term is closer to the orginial search term, it would be more relevant and should have a higher chance of occuring in the new query term. We added the proximity value to ROCCHIO's algorithm, to give such words a higher score.
+
+So we selected the top ten results generated from Rocchio's algorithm, and from the top ten we selected those 2 terms which had the highest proximity value. 
+
+
+References:
+[1] C. Manning, P. Raghavan and H. Schütze, "Introduction to Information Retrieval", Cambridge University Press. 2008
+[2] O. Vechtomova and Y. Wang, “A Study of the Effect of Term Proximity on Query Expansion,” Inf. Sci., pp. 1–19, 2006
+
+

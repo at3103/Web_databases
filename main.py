@@ -1,4 +1,4 @@
-#$import src.queries as q
+from src.functions.check_sanity import *
 from src.functions.add_qterms import *
 from src.functions.BingQuery import *
 from src.glob.scheme import *
@@ -15,17 +15,6 @@ import operator
 from src.functions.savetoFile import *
 
 
-if len(sys.argv) != 4:
-	print "Wrong format: Provide arguments in this parameter <t_es> <t_ec> <host>"
-	sys.exit()
-
-if(float(sys.argv[1]) > 1 or float(sys.argv[1]) < 0):
-	print "Specificity threshold should be 0 - 1"
-	sys.exit()
-
-if(float(sys.argv[2]) < 1):
-	print "Invalid value for t_c"
-	sys.exit()
 
 host = sys.argv[3]	
 
@@ -109,7 +98,7 @@ for node in displaylist:
 		if link.endswith(".pdf") or link.endswith(".ppt"):
 			continue
 		else:
-		#if "pdf" not in link or "ppt" not in link: #Ignoring PDFs and PPTs
+		if "pdf" not in link or "ppt" not in link: #Ignoring PDFs and PPTs
 			subprocess.call(["cd","src"])
 			proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
 			st = proc.communicate()[0]

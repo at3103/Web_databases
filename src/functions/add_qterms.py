@@ -1,8 +1,6 @@
 from .. classes.classification import *
 from .. glob.scheme import *
 
-
-
 def Add_qterms():
 	
 	filenames = ['root', 'sports', 'health', 'computers']
@@ -19,7 +17,3 @@ def Add_qterms():
 			word_list = word_list.replace(" ","%20")
 			d[obj].q_terms.append(word_list)
 			
-	# for di in d.keys():
-	# 	print di + " : " ,d[di].q_terms
-	# for c in range(root.ch_count):
-	# 	print root.child[c]

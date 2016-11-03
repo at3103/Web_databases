@@ -4,16 +4,9 @@ from src.classes.given import *
 
 label_list = []
 count = 0 
-
-#tec = 12000
-#tes = 0.02
-th = threshold(70000, 0.0001)
-
-#Check Threshold!!!!
 tec = th.tec
 tes = th.tes
 
-# def classify(label,tec,tes):
 def classify(label):
 	if label.cov >= tec and label.spec >= tes:
 		if label.ch_count <= 0:
@@ -29,17 +22,6 @@ def classify(label):
 			label.parent.flag += 1
 		else:
 			label_list.append(label.parent.path)		
-
-	'''	
-	for child in label.child:
-		#count += 1
-		if child.cov>tec and child.spec>tes:
-			storeClass(child)
-			classify(child,tec,tes)
-		#if count == child.ch_count:
-	'''	
-
-				
 
 def display(label):
 	print "Specificity for category:"+label.name+ " is ",label.spec			

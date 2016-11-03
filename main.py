@@ -82,7 +82,6 @@ for node in displaylist:
 		if link.endswith(".pdf") or link.endswith(".ppt"): 
 			continue
 		else:
-			subprocess.call(["cd","src"])
 			proc = subprocess.Popen(["java","getWordsLynx", link], stdout=subprocess.PIPE, cwd =r'src')
 			st = proc.communicate()[0]
 			doc_words = set(st.strip().strip('\x00').split())
